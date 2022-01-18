@@ -1,10 +1,5 @@
 import IService from "../models/serviceInterface";
 import ServicesCard from "../components/ServicesCard";
-import { RiChat3Line } from "react-icons/ri";
-import { SiCanva } from "react-icons/si";
-import { GrOptimize } from "react-icons/gr";
-import { services } from "../models/services";
-import * as Icons from "react-icons";
 import type { NextPage } from "next";
 
 const Home: NextPage = (service: any) => {
