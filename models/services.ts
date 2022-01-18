@@ -1,5 +1,3 @@
-import { RiChat3Line } from "react-icons/ri";
-import { SiCanva } from "react-icons/si";
 import IService from "./serviceInterface";
 
 export const services: IService[] = [
