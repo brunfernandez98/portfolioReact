@@ -4,10 +4,9 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { mouseAnimation } from "./MousePositionInterface";
 import { variants } from "./ButtonVariant";
-import { CursorContext } from "../../../context/CursorContext";
+import CursorContextProvider from "../../../context/CursorContext";
 
 export const CursorContextTwo = createContext({});
-
 
 const Circle = styled(motion.div)`
   position: fixed;
@@ -28,7 +27,7 @@ const Circle = styled(motion.div)`
   font-size: 16px;
 `;
 
-export const Cursor = ({children}:any) => {
+export const Cursor = ({ children }: any) => {
   const [cursorText, setCursorText] = useState("");
   const [cursorVariant, setCursorVariant] = useState("default");
   const [cursor, setCursor] = useState<any>({ active: true });
@@ -78,14 +77,14 @@ export const Cursor = ({children}:any) => {
   }
 
   return (
-    <CursorContextTwo.Provider value={[cursor, setCursor]} >
-    <Circle
-      variants={variants(mousePosition)}
-      animate={cursorVariant}
-      transition={spring}
-    >
-     {children}
-    </Circle>
-    </CursorContextTwo.Provider>
+    <CursorContextProvider>
+      <Circle
+        variants={variants(mousePosition)}
+        animate={cursorVariant}
+        transition={spring}
+      >
+        {children}
+      </Circle>
+    </CursorContextProvider>
   );
 };
