@@ -1,90 +1,99 @@
-import React, { useState, createContext, useContext } from "react";
+import React, {useState, createContext, useContext, Children} from "react";
 import useMouse from "@react-hook/mouse-position";
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 import styled from "styled-components";
-import { mouseAnimation } from "./MousePositionInterface";
-import { variants } from "./ButtonVariant";
+import {mouseAnimation} from "./MousePositionInterface";
+import {variants} from "./ButtonVariant";
 import CursorContextProvider from "../../../context/CursorContext";
 
 export const CursorContextTwo = createContext({});
 
 const Circle = styled(motion.div)`
-  position: fixed;
-  z-index: 100;
-  display: flex;
-  flex-flow: row;
-  align-content: center;
-  justify-content: center;
-  top: 0;
-  left: 0;
-  height: 10px;
-  width: 10px;
-  background-color: #1e91d6;
-  border-radius: 200px;
-  pointer-events: none;
-  color: #fff;
-  text-align: center;
-  font-size: 16px;
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    flex-flow: row;
+    align-content: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    height: 10px;
+    width: 10px;
+    background-color: #1e91d6;
+    border-radius: 200px;
+    pointer-events: none;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
 `;
 
-export const Cursor = ({ children }: any) => {
-  const [cursorText, setCursorText] = useState("");
-  const [cursorVariant, setCursorVariant] = useState("default");
-  const [cursor, setCursor] = useState<any>({ active: true });
-  const ref = React.useRef(null);
-  const mouse = useMouse(ref, {
-    enterDelay: 100,
-    leaveDelay: 100,
-  });
+export const Cursor = ({children}: any) => {
+    const [cursorText, setCursorText] = useState("");
+    const [cursorVariant, setCursorVariant] = useState("default");
 
-  const mousePosition: mouseAnimation = {
-    mouseXPosition: mouse.x,
-    mouseYPosition: mouse.y,
-  };
+    const ref = React.useRef(null);
+    const mouse = useMouse(ref, {
+        enterDelay: 100,
+        leaveDelay: 100,
+    });
 
-  if (mouse.x !== null) {
-    mousePosition.mouseXPosition = mouse.clientX;
-  }
+    const mousePosition: mouseAnimation = {
+        mouseXPosition: mouse.x!,
+        mouseYPosition: mouse.y!,
+    };
 
-  if (mouse.y !== null) {
-    mousePosition.mouseYPosition = mouse.clientY;
-  }
+    if (mouse.x !== null) {
+        mousePosition.mouseXPosition = mouse.clientX;
+    }
 
-  const spring = {
-    type: "spring",
-    stiffness: 500,
-    damping: 28,
-  };
+    if (mouse.y !== null) {
+        mousePosition.mouseYPosition = mouse.clientY;
+    }
 
-  function projectEnter(_event: any) {
-    setCursorText("View");
-    setCursorVariant("project");
-  }
+    const spring = {
+        type: "spring",
+        stiffness: 500,
+        damping: 28,
+    };
 
-  function projectLeave(_event: any) {
-    setCursorText("");
-    setCursorVariant("default");
-  }
+    function projectEnter(_event: any) {
+        setCursorText("View");
+        setCursorVariant("project");
+    }
 
-  function contactEnter(_event: any) {
-    setCursorText("👋");
-    setCursorVariant("contact");
-  }
+    function projectLeave(_event: any) {
+        setCursorText("");
+        setCursorVariant("default");
+    }
 
-  function contactLeave(_event: any) {
-    setCursorText("");
-    setCursorVariant("default");
-  }
+    function contactEnter(_event: any) {
+        setCursorText("👋");
+        setCursorVariant("contact");
+    }
 
-  return (
-    <CursorContextProvider>
-      <Circle
-        variants={variants(mousePosition)}
-        animate={cursorVariant}
-        transition={spring}
-      >
-        {children}
-      </Circle>
-    </CursorContextProvider>
-  );
+    function contactLeave(_event: any) {
+        setCursorText("");
+        setCursorVariant("default");
+    }
+
+    return (
+        <div>
+            <div className="container" ref={ref}>
+                <motion.div
+                    variants={variants(mousePosition)}
+                    className="circle"
+                    animate={cursorVariant}
+                    transition={spring}>
+                    <span className="cursorText">{cursorText}</span>
+                </motion.div>
+               
+                {Children.map(children, (child: any) => {
+                    return React.cloneElement(child, {
+                        onMouseEnter: projectEnter,
+                        onMouseLeave: projectLeave,
+                    });
+                })}
+            </div>
+        </div>
+    );
 };

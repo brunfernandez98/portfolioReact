@@ -1,14 +1,14 @@
-import React, { createContext, useState } from "react";
+import React, {createContext, useState} from "react";
 export const CursorContext = createContext({});
 
-const CursorContextProvider = ({ children }: any) => {
-  const [cursor, setCursor] = useState<any>({ active: true });
+const CursorContextProvider = ({children}: any) => {
+    const [cursor, setCursor] = useState<any>({active: true});
 
-  return (
-    <CursorContext.Provider value={[cursor, setCursor]}>
-      {children}
-    </CursorContext.Provider>
-  );
+    return (
+        <CursorContext.Provider value={[cursor, setCursor]}>
+            {children}
+        </CursorContext.Provider>
+    );
 };
 
 export default CursorContextProvider;
