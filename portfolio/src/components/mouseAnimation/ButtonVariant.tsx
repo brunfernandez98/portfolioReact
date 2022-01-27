@@ -7,7 +7,7 @@ export const variants = ({mouseXPosition, mouseYPosition}: mouseAnimation) => {
             height: 10,
             width: 10,
             fontSize: "16px",
-            backgroundColor: "#1e91d6",
+            backgroundColor: "#F4A8A9",
             x: mouseXPosition!,
             y: mouseYPosition!,
             transition: {

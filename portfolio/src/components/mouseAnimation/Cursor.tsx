@@ -4,9 +4,8 @@ import {motion} from "framer-motion";
 import styled from "styled-components";
 import {mouseAnimation} from "./MousePositionInterface";
 import {variants} from "./ButtonVariant";
-import CursorContextProvider from "../../../context/CursorContext";
 
-export const CursorContextTwo = createContext({});
+export const CursorContext = createContext({});
 
 const Circle = styled(motion.div)`
     position: fixed;
@@ -19,7 +18,7 @@ const Circle = styled(motion.div)`
     left: 0;
     height: 10px;
     width: 10px;
-    background-color: #1e91d6;
+    background-color: #f4a8a9;
     border-radius: 200px;
     pointer-events: none;
     color: #fff;
@@ -32,6 +31,7 @@ export const Cursor = ({children}: any) => {
     const [cursorVariant, setCursorVariant] = useState("default");
 
     const ref = React.useRef(null);
+
     const mouse = useMouse(ref, {
         enterDelay: 100,
         leaveDelay: 100,
@@ -77,23 +77,19 @@ export const Cursor = ({children}: any) => {
     }
 
     return (
-        <div>
-            <div className="container" ref={ref}>
-                <motion.div
-                    variants={variants(mousePosition)}
-                    className="circle"
-                    animate={cursorVariant}
-                    transition={spring}>
-                    <span className="cursorText">{cursorText}</span>
-                </motion.div>
-               
-                {Children.map(children, (child: any) => {
-                    return React.cloneElement(child, {
-                        onMouseEnter: projectEnter,
-                        onMouseLeave: projectLeave,
-                    });
-                })}
+        <CursorContext.Provider value={ref}>
+            <div>
+                <div ref={ref}>
+                    <Circle
+                        ref={ref}
+                        variants={variants(mousePosition)}
+                        animate={cursorVariant}
+                        transition={spring}>
+                        <span className="cursorText">{cursorText}</span>
+                    </Circle>
+                    {children}
+                </div>
             </div>
-        </div>
+        </CursorContext.Provider>
     );
 };

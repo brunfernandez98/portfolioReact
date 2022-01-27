@@ -15,70 +15,14 @@ const GlobalStyle = createGlobalStyle`
         overflow-x:hidden;
         font-family: 'Source Sans Pro', sans-serif;
     }
-    .cursor {
-        width: 20px;
-        height: 20px;
-        border: 1px solid white;
-        border-radius: 50%;
-        position: absolute;
-        pointer-events: none;
-      }
-      
-    .cursor::after {
-        content: "";
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        border: 2px solid blue;
-        border-radius: 50%;
-        opacity: .5;
-        top: -8px;
-        left: -8px;
-      }
-      
-      @keyframes cursorAnim {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(5);
-        }
-        100% {
-            transform: scale(1);
-            opacity: 0;
-        }
-      }
-      
-      .expand {
-        animation: cursorAnim .5s forwards;
-      }
-      .circle {
-        position: fixed;
-        z-index: 100;
-        display: flex;
-        flex-flow: row;
-        align-content: center;
-        justify-content: center;
-        top: 0;
-        left: 0;
-        height: 10px;
-        width: 10px;
-        background-color: #1e91d6;
-        border-radius: 200px;
-        pointer-events: none;
-        color: #fff;
-        text-align: center;
-        font-size: 16px;
-      }
-      
+ 
+    
       .cursorText {
         flex: auto;
         font-size: inherit;
         pointer-events: none;
         margin: auto;
       }
-      
-      
       
       .project {
         display: inline-block;

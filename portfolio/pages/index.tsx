@@ -2,7 +2,11 @@ import type {NextPage} from "next";
 import Head from "next/head";
 import {IMyWork} from "../src/models/IMyWork";
 import styled from "styled-components";
-import PowerButton from "../src/components/PowerButton";
+import PowerButton from "../src/components/subComponents/PowerButton";
+import Logo from "../src/components/subComponents/Logo";
+import Social from "../src/components/subComponents/Social";
+
+import Link from "next/link";
 
 const MainContainer = styled.div`
     background: ${(props) => props.theme.body};
@@ -23,7 +27,14 @@ const MainContainer = styled.div`
 const Container = styled.div`
     padding: 2rem;
 `;
-
+const Contact = styled(Link)`
+    color: ${(props) => props.theme.text};
+    position: absolute;
+    top: 2rem;
+    right: calc(1rem + 2vw);
+    text-decoration: none;
+    z-index: 1;
+`;
 const Home: NextPage = () => {
     return (
         <div>
@@ -37,7 +48,12 @@ const Home: NextPage = () => {
             </Head>
             <MainContainer>
                 <Container>
-                    <PowerButton />
+                    <PowerButton href="/" />
+                    <Logo />
+                    <Social />
+                    <Contact href="/contact">
+                        <h3>Say Hi..</h3>
+                    </Contact>
                 </Container>
             </MainContainer>
         </div>
