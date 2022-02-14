@@ -76,14 +76,13 @@ const Intro = () => {
       <SubBoxLeft>
         <Text>
           <h1>Hi, </h1>
-          <h3>I'm Florencia</h3>
+          <h3>I&rsquo; m Florencia</h3>
           <h6>I design and Code simple yet beautiful websites.</h6>
         </Text>
       </SubBoxLeft>
       <SubBoxRight>
         <div className="pic">
           <Image src={Me} className="image" alt="Profile Pic" />
-        
         </div>
       </SubBoxRight>
     </Box>
