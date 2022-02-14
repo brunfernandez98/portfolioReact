@@ -2,26 +2,31 @@ import React from "react";
 import styled from "styled-components";
 import Me from "../assets/HiAvatar.png";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
+const Container = styled(motion.div)`
+  position: relative;
+  bottom: 0 !important;
+  width: 100% !important;
+
+  div > span {
+    position: absolute !important;
+    transform: translate(-50%, 0%) !important;
+    bottom: 0 !important;
+
+    width: 100% !important;
+    left: 50%;
+  }
+  * > img {
+    height: auto !important;
+    width: 100% !important;
+  }
+`;
 
 const SubBox = styled.div`
   width: 50%;
   position: relative;
   display: flex;
-
-  .pic > span {
-    position: absolute !important;
-
-    bottom: 0 !important;
-    transform: translate(-50%, 0%) !important;
-    width: 100% !important;
-    height: auto !important;
-  }
-  .image {
-    position: absolute !important;
-    width: 100% !important;
-    bottom: 0 !important;
-    left: 50% !important;
-  }
 `;
 const SubBoxLeft = styled(SubBox)``;
 const SubBoxRight = styled(SubBox)``;
@@ -40,7 +45,8 @@ const Text = styled.div`
     font-weight: 300;
   }
 `;
-const Box = styled.div`
+
+const Box = styled(motion.div)`
   left: 50%;
   top: 50%;
 
@@ -72,18 +78,28 @@ const Box = styled.div`
 
 const Intro = () => {
   return (
-    <Box>
+    <Box
+      initial={{ height: "0" }}
+      animate={{ height: "55vh" }}
+      transition={{ type: "spring", duration: 2, delay: 1 }}
+    >
       <SubBoxLeft>
         <Text>
           <h1>Hi, </h1>
-          <h3>I&rsquo; m Florencia</h3>
+          <h3>I&rsquo; m Florencia.</h3>
           <h6>I design and Code simple yet beautiful websites.</h6>
         </Text>
       </SubBoxLeft>
       <SubBoxRight>
-        <div className="pic">
-          <Image src={Me} className="image" alt="Profile Pic" />
-        </div>
+        <Container
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 2 }}
+        >
+          <div>
+            <Image src={Me} alt="Profile Pic" />
+          </div>
+        </Container>
       </SubBoxRight>
     </Box>
   );
