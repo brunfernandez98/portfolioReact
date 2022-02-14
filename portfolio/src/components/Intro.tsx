@@ -83,6 +83,7 @@ const Intro = () => {
       <SubBoxRight>
         <div className="pic">
           <Image src={Me} className="image" alt="Profile Pic" />
+        
         </div>
       </SubBoxRight>
     </Box>
