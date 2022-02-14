@@ -15,6 +15,8 @@ import { Contact, About, Blog, Work, Skills } from "../src/components/Exports";
 import { useContext, useEffect, useState } from "react";
 import { CursorContext } from "../context/CursorContext";
 import Intro from "../src/components/Intro";
+import { motion } from "framer-motion";
+import TextH2 from "../src/components/subComponents/TextH2";
 
 const MainContainer = styled.div`
   background: ${(props) => props.theme.body};
@@ -130,28 +132,28 @@ const Home: NextPage = () => {
           </Center>
           <Link href="mailto:florenciafont2014@gmail.com" passHref>
             <Contact>
-              <h2>Say hi...</h2>
+              <TextH2 text="Say hi..." />
             </Contact>
           </Link>
           <Link href="/blog" passHref>
             <Blog>
-              <h2>Blog.</h2>
+              <TextH2 text="Blog." />
             </Blog>
           </Link>
           <Link href="/work" passHref>
             <Work click={click}>
-              <h2>Work.</h2>
+              <TextH2 text="Work." />
             </Work>
           </Link>
           <BottomBar>
             <Link href="/about" passHref>
               <About click={click}>
-                <h2>About.</h2>
+                <TextH2 text="About." />
               </About>
             </Link>
             <Link href="/skills" passHref>
               <Skills>
-                <h2>My Skills.</h2>
+                <TextH2 text="MySkills." />
               </Skills>
             </Link>
           </BottomBar>
