@@ -1,73 +1,87 @@
-import Link from "next/link";
+import Link from "./Link";
 import React from "react";
 import styled from "styled-components";
-import {Facebook, Github, Linkedin, Twitter, Whatsapp} from "./AllSvg";
+import { Facebook, Github, Linkedin, Twitter, Whatsapp } from "./AllSvg";
+import { darkTheme } from "../Theme";
+
+interface Props {
+  theme: string;
+}
 
 const Icon = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 2rem;
-    z-index: 3;
-    & > *:not(:last-child) {
-        margin: 0.5rem 0;
-    }
-`;
-const Line = styled.span`
-    width: 2px;
-    height: 8rem;
-    background-color: ${(props) => props.theme.text};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 2rem;
+  z-index: 3;
+  & > *:not(:last-child) {
+    margin: 0.5rem 0;
+  }
 `;
 
-const Social = () => {
-    return (
-        <Icon>
-            <div>
-                <Link
-                    href={"https://uy.linkedin.com/in/florencia-font-90a3541b2"}
-                    passHref>
-                    <Twitter
-                        width={25}
-                        height={25}
-                        fill="currentColor"></Twitter>
-                </Link>
-            </div>
-            <div>
-                <Link href={"https://wa.link/3ykzgg"} passHref>
-                    <Whatsapp
-                        width={25}
-                        height={25}
-                        fill="currentColor"></Whatsapp>
-                </Link>
-            </div>
-            <div>
-                <Link href={""} passHref>
-                    <Linkedin
-                        width={25}
-                        height={25}
-                        fill="currentColor"></Linkedin>
-                </Link>
-            </div>
-            <div>
-                <Link href={""} passHref>
-                    <Facebook
-                        width={25}
-                        height={25}
-                        fill="currentColor"></Facebook>
-                </Link>
-            </div>
+const Line = styled.span<Props>`
+  width: 2px;
+  height: 8rem;
+  background-color: ${(props) =>
+    props.theme === "dark" ? darkTheme.text : darkTheme.body};
+`;
 
-            <div>
-                <Link href={""} passHref>
-                    <Github width={25} height={25} fill="currentColor"></Github>
-                </Link>
-            </div>
+const Social = ({ theme }: Props) => {
+  return (
+    <Icon>
+      <div>
+        <Link
+          href="https://uy.linkedin.com/in/florencia-font-90a3541b2"
+          passHref
+        >
+          <div>
+            <Twitter
+              width={25}
+              height={25}
+              fill={theme === "dark" ? darkTheme.text : darkTheme.body}
+            ></Twitter>
+          </div>
+        </Link>
+      </div>
+      <div>
+        <Link href="https://wa.link/3ykzgg" passHref>
+          <div>
+            <Whatsapp
+              width={25}
+              height={25}
+              fill={theme === "dark" ? darkTheme.text : darkTheme.body}
+            ></Whatsapp>
+          </div>
+        </Link>
+      </div>
+      <div>
+        <Link href="" passHref>
+          <div>
+            <Linkedin
+              width={25}
+              height={25}
+              fill={theme === "dark" ? darkTheme.text : darkTheme.body}
+            ></Linkedin>
+          </div>
+        </Link>
+      </div>
+      <div>
+        <Link href="" passHref>
+          <div>
+            <Facebook
+              width={25}
+              height={25}
+              fill={theme === "dark" ? darkTheme.text : darkTheme.body}
+            ></Facebook>
+          </div>
+        </Link>
+      </div>
 
-            <Line />
-        </Icon>
-    );
+      <Line theme={theme} />
+    </Icon>
+  );
 };
 
 export default Social;

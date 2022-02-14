@@ -1,14 +1,9 @@
-import React, {createContext, useState} from "react";
-export const CursorContext = createContext({});
+import React, { createContext, useState } from "react";
 
-const CursorContextProvider = ({children}: any) => {
-    const [cursor, setCursor] = useState<any>({active: false});
+export const CursorContext = createContext({
+  cursorcolor: "#ff9d9e",
+  setCursorColor: (color: string) => {},
+});
 
-    return (
-        <CursorContext.Provider value={[cursor, setCursor]}>
-            {children}
-        </CursorContext.Provider>
-    );
-};
 
-export default CursorContextProvider;
+export default CursorContext;

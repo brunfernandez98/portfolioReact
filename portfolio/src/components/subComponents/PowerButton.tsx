@@ -1,50 +1,68 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import {Painter} from "./AllSvg";
+import pointerAnimation from "../../assets/animation/pointerAnimation.json";
+import Lottie from "react-lottie";
 
-const Palette = styled.div`
-    position: fixed;
-    top: 2rem;
-    left: 50%;
-    transform: translate(-50%, 0);
+const Palette = styled.button`
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0.2rem;
 
-    padding: 0.3rem;
+  width: 7.5rem;
+  height: 7.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
 
-    width: 7.5rem;
-    height: 7.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 3;
-    cursor: pointer;
-
-    &:hover {
-        box-shadow: 0 0 8px 6px rgba(255, 0, 0, 0.3);
-        border-radius: 50%;
-        border-width: thin;
-        border-style: solid;
-    }
-    & > *:first-child {
-        text-decoration: none;
-        color: inherit;
-    }
+  & > *:first-child {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 type PowerButtonProps = {
-    href: string;
+  href: string;
+  click: boolean;
 };
 
-const PowerButton = ({href}: PowerButtonProps) => {
-    return (
-        <div>
-            <Link href={href} passHref>
-                <Palette>
-                    <Painter width={164} height={164}></Painter>
-                </Palette>
-            </Link>
-        </div>
-    );
+const PowerButton = ({ href, click }: PowerButtonProps) => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: pointerAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+  const eventListeners: any = [
+    {
+      eventName: "complete",
+      callback: () => {},
+    },
+  ];
+  return (
+    <div>
+      <Link href={href} passHref>
+        <Palette onMouseEnter={eventListeners.callback}>
+          {click && (
+            <Lottie
+              options={defaultOptions}
+              height={100}
+              width={100}
+              eventListeners={eventListeners}
+            />
+          )}
+        </Palette>
+      </Link>
+    </div>
+  );
 };
 
 export default PowerButton;
