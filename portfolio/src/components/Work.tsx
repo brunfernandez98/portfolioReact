@@ -12,6 +12,9 @@ const Work = styled.a<Props>`
   transform: translate(-50%, -50%) rotate(-90deg);
   text-decoration: none;
   z-index: 1;
+  @media only screen and (max-width: 50em) {
+    text-shadow: ${(props) => (props.click ? "rgb(0 0 0) 0px 0px 4px" : "")};
+  }
 `;
 
 export default Work;

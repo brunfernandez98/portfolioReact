@@ -15,7 +15,6 @@ import { Contact, About, Blog, Work, Skills } from "../src/components/Exports";
 import { useContext, useEffect, useState } from "react";
 import { CursorContext } from "../context/CursorContext";
 import Intro from "../src/components/Intro";
-import { motion } from "framer-motion";
 import TextH2 from "../src/components/subComponents/TextH2";
 
 const MainContainer = styled.div`
@@ -80,6 +79,7 @@ const Center = styled.button<ClickProps>`
   }
 `;
 const PinkDiv = styled.div<ClickProps>`
+  display: block;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -89,13 +89,26 @@ const PinkDiv = styled.div<ClickProps>`
   height: ${(props) => (props.click ? "100%" : "0%")};
   z-index: 1;
   transition: height 0.5s ease, width 1s ease 0.5s;
+
+  @media (max-width: 50em) {
+    height: ${(props) => (props.click ? "50%" : "0%")};
+    right: 0px;
+    width: ${(props) => (props.click ? "100%" : "0%")};
+    transition: width 0.5s ease 0s, height 1s ease 0.5s;
+  }
 `;
 
 const Home: NextPage = () => {
+  const [loading, setLoading] = useState(true);
+  console.log(loading);
   useEffect(() => {
     setTimeout(() => {
       setCanClick(true);
     }, 7000);
+  }, []);
+
+  useEffect(() => {
+    setLoading(false);
   }, []);
 
   const [click, setClick] = useState(false);
@@ -112,54 +125,62 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <title>Florencia Portfolio</title>
+        <meta
+          name="viewport"
+          content="initial-scale = 1.0,maximum-scale = 1.0"
+        />
         <meta name="description" content="Portfolio Florencia" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainContainer>
-        <PinkDiv click={click} />
-        <Container>
-          <PowerButton href="/" click={canClick} />
-          <Logo theme={click ? "dark" : "light"} />
-          <Social theme={click ? "dark" : "light"} />
-          <Center click={click}>
-            <SvgCohete
-              onClick={() => handleClick()}
-              width={click ? 200 : 400}
-              height={click ? 150 : 400}
-              fill="currentColor"
-            />
-            <ButtonCenter click={canClick} />
-          </Center>
-          <Link href="mailto:florenciafont2014@gmail.com" passHref>
-            <Contact>
-              <TextH2 text="Say hi..." />
-            </Contact>
-          </Link>
-          <Link href="/blog" passHref>
-            <Blog>
-              <TextH2 text="Blog." />
-            </Blog>
-          </Link>
-          <Link href="/work" passHref>
-            <Work click={click}>
-              <TextH2 text="Work." />
-            </Work>
-          </Link>
-          <BottomBar>
-            <Link href="/about" passHref>
-              <About click={click}>
-                <TextH2 text="About." />
-              </About>
+      {loading ? (
+        <h1>Cargando</h1>
+      ) : (
+        <MainContainer>
+          <PinkDiv click={click} />
+          <Container>
+            <PowerButton click={canClick} />
+            <Logo theme={click ? "dark" : "light"} />
+            <Social theme={click ? "dark" : "light"} />
+            <Center click={click}>
+              <SvgCohete
+                onClick={() => handleClick()}
+                width={click ? 200 : 400}
+                height={click ? 150 : 400}
+                fill="currentColor"
+              />
+              <ButtonCenter click={canClick} />
+            </Center>
+            <Link href="mailto:florenciafont2014@gmail.com" passHref>
+              <Contact click={click}>
+                <TextH2 text="Say hi..." />
+              </Contact>
             </Link>
-            <Link href="/skills" passHref>
-              <Skills>
-                <TextH2 text="MySkills." />
-              </Skills>
+            <Link href="/blog" passHref>
+              <Blog click={click}>
+                <TextH2 text="Blog." />
+              </Blog>
             </Link>
-          </BottomBar>
-        </Container>
-        {click ? <Intro /> : null}
-      </MainContainer>
+            <Link href="/work" passHref>
+              <Work click={click}>
+                <TextH2 text="Work." />
+              </Work>
+            </Link>
+            <BottomBar>
+              <Link href="/about" passHref>
+                <About click={click}>
+                  <TextH2 text="About." />
+                </About>
+              </Link>
+              <Link href="/skills" passHref>
+                <Skills>
+                  <TextH2 text="MySkills." />
+                </Skills>
+              </Link>
+            </BottomBar>
+          </Container>
+          {click ? <Intro /> : null}
+        </MainContainer>
+      )}
     </div>
   );
 };

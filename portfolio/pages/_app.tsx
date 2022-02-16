@@ -3,7 +3,6 @@ import GlobalStyle from "../styles/globalStyle";
 import "../node_modules/normalize.css";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "../src/components/Theme";
-import { darkTheme } from "../src/components/Theme";
 import React, { useState } from "react";
 import { Cursor } from "../src/components/mouseAnimation/Cursor";
 import { CursorContext } from "../context/CursorContext";

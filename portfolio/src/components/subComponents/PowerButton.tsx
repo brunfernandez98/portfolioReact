@@ -20,7 +20,9 @@ const Palette = styled.button`
   justify-content: center;
   align-items: center;
   z-index: 3;
-
+  &:hover {
+    transform: translate(-50%, 0) scale(1.1);
+  }
   & > *:first-child {
     text-decoration: none;
     color: inherit;
@@ -28,11 +30,10 @@ const Palette = styled.button`
 `;
 
 type PowerButtonProps = {
-  href: string;
   click: boolean;
 };
 
-const PowerButton = ({ href, click }: PowerButtonProps) => {
+const PowerButton = ({ click }: PowerButtonProps) => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -49,7 +50,7 @@ const PowerButton = ({ href, click }: PowerButtonProps) => {
   ];
   return (
     <div>
-      <Link href={href} passHref>
+      <Link href="/" passHref>
         <Palette onMouseEnter={eventListeners.callback}>
           {click && (
             <Lottie

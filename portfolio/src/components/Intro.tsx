@@ -13,13 +13,23 @@ const Container = styled(motion.div)`
     position: absolute !important;
     transform: translate(-50%, 0%) !important;
     bottom: 0 !important;
-
     width: 100% !important;
     left: 50%;
   }
   * > img {
     height: auto !important;
     width: 100% !important;
+  }
+  @media (max-width: 50em) {
+    align-items: center;
+    * > img {
+      width: 70% !important;
+      transform: translate(-50%, -50%) !important;
+    }
+    div > span {
+      position: absolute !important;
+      transform: translate(-50%, -50%) !important;
+    }
   }
 `;
 
@@ -28,7 +38,12 @@ const SubBox = styled.div`
   position: relative;
   display: flex;
 `;
-const SubBoxLeft = styled(SubBox)``;
+const SubBoxLeft = styled(SubBox)`
+  @media (max-width: 50em) {
+    width: 100%;
+    height: 50%;
+  }
+`;
 const SubBoxRight = styled(SubBox)``;
 
 const Text = styled.div`
@@ -47,6 +62,32 @@ const Text = styled.div`
 `;
 
 const Box = styled(motion.div)`
+  @media screen and (max-width: 1200em) {
+    width: 65vw;
+  }
+  @media screen and (max-width: 60em) {
+    width: 70vw;
+  }
+  @media screen and(max-width: 70em) {
+    width: 75vw;
+  }
+  @media only screen and (max-width: 50em) {
+    border-right-width: initial;
+    border-left-width: initial;
+    border-right-color: initial;
+    border-left-color: initial;
+    background: linear-gradient(rgb(252, 246, 244) 50%, rgb(0, 0, 0) 50%) 0px
+        0px / 2px 100% no-repeat,
+      linear-gradient(rgb(252, 246, 244) 50%, rgb(0, 0, 0) 50%) 100% 0px;
+    border-style: solid none;
+    border-image: initial;
+    border-top: 2px solid rgb(252, 246, 244);
+    border-bottom: 2px solid rgb(0, 0, 0);
+    background-position: 0px 0px, 100% 0px;
+    background-repeat: no-repeat;
+    width: 50vw;
+  }
+
   left: 50%;
   top: 50%;
 
