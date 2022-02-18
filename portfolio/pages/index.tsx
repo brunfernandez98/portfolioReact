@@ -16,6 +16,8 @@ import { useContext, useEffect, useState } from "react";
 import { CursorContext } from "../context/CursorContext";
 import Intro from "../src/components/Intro";
 import TextH2 from "../src/components/subComponents/TextH2";
+import useDevice from "../src/components/hooks/useDevice";
+import FirstTimeContext from "../context/FirstTimeContext";
 
 const MainContainer = styled.div`
   background: ${(props) => props.theme.body};
@@ -42,6 +44,10 @@ interface ClickProps {
 }
 
 const Center = styled.button<ClickProps>`
+  @media only screen and (max-width: 50em) {
+    top: ${(props) => (props.click ? "85%" : "50%")};
+    left: ${(props) => (props.click ? "85%" : "50%")};
+  }
   position: absolute;
   top: ${(props) => (props.click ? "85%" : "50%")};
   left: ${(props) => (props.click ? "92%" : "50%")};
@@ -99,9 +105,15 @@ const PinkDiv = styled.div<ClickProps>`
 `;
 
 const Home: NextPage = () => {
+  const firstTimeContext = useContext(FirstTimeContext);
+  const [canClick, setCanClick] = useState(false);
   const [loading, setLoading] = useState(true);
-  console.log(loading);
+  console.log("first ");
   useEffect(() => {
+    if (!firstTimeContext.firstTime) {
+      setCanClick(true);
+      return;
+    }
     setTimeout(() => {
       setCanClick(true);
     }, 7000);
@@ -112,7 +124,7 @@ const Home: NextPage = () => {
   }, []);
 
   const [click, setClick] = useState(false);
-  const [canClick, setCanClick] = useState(false);
+
   const context = useContext(CursorContext);
   const enable = canClick && !click;
 
@@ -125,10 +137,6 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <title>Florencia Portfolio</title>
-        <meta
-          name="viewport"
-          content="initial-scale = 1.0,maximum-scale = 1.0"
-        />
         <meta name="description" content="Portfolio Florencia" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -138,15 +146,16 @@ const Home: NextPage = () => {
         <MainContainer>
           <PinkDiv click={click} />
           <Container>
-            <PowerButton click={canClick} />
+            <PowerButton click={!firstTimeContext.firstTime || canClick} />
             <Logo theme={click ? "dark" : "light"} />
             <Social theme={click ? "dark" : "light"} />
             <Center click={click}>
               <SvgCohete
                 onClick={() => handleClick()}
-                width={click ? 200 : 400}
-                height={click ? 150 : 400}
                 fill="currentColor"
+                height={click ? 150 : 400}
+                width={click ? 200 : 400}
+                firstTime={false}
               />
               <ButtonCenter click={canClick} />
             </Center>
@@ -173,7 +182,7 @@ const Home: NextPage = () => {
               </Link>
               <Link href="/skills" passHref>
                 <Skills>
-                  <TextH2 text="MySkills." />
+                  <TextH2 text="My Skills." />
                 </Skills>
               </Link>
             </BottomBar>

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { CenterProps } from "./interfaces";
+import { FirstTimeContext } from "../../../context/FirstTimeContext";
 const ButtonMedia = styled.div`
   text-decoration: none;
   z-index: 4;
@@ -12,22 +13,19 @@ const ButtonMedia = styled.div`
 `;
 
 const TextClick = styled.span<CenterProps>`
-  @keyframes appear {
-    0% {
-      visibility: hidden;
-    }
-    100% {
-      visibility: hidden;
-    }
+  @media only screen and (max-width: 50em) {
+    font-size: 1rem;
   }
-  -webkit-animation-name: ${(props) => (props.click ? "" : "appear")};
-  animation-duration: 7s;
+  visibility: ${(props) => (props.canAppear ? "visible" : "hidden")};
 `;
 
 const ButtonCenter = (props: any) => {
+  const firstTimeContext = useContext(FirstTimeContext);
+  const canAppear = !firstTimeContext.firstTime || props.click;
+
   return (
     <ButtonMedia>
-      <TextClick {...props}> Click here... </TextClick>
+      <TextClick canAppear={canAppear}> Click here... </TextClick>
     </ButtonMedia>
   );
 };

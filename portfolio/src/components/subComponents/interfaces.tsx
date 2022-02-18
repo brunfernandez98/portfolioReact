@@ -1,9 +1,10 @@
 export interface CellPhoneInterface {
   onClick: any;
+  fill: string;
   width: number;
   height: number;
-  fill: string;
+  firstTime: boolean;
 }
 export interface CenterProps {
-  click: boolean;
+  canAppear: boolean;
 }

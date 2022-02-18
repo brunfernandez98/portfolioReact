@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import pointerAnimation from "../../assets/animation/pointerAnimation.json";
@@ -50,18 +50,18 @@ const PowerButton = ({ click }: PowerButtonProps) => {
   ];
   return (
     <div>
-      <Link href="/" passHref>
-        <Palette onMouseEnter={eventListeners.callback}>
-          {click && (
+      {click && (
+        <Link href="/" passHref>
+          <Palette onMouseEnter={eventListeners.callback}>
             <Lottie
               options={defaultOptions}
               height={100}
               width={100}
               eventListeners={eventListeners}
             />
-          )}
-        </Palette>
-      </Link>
+          </Palette>
+        </Link>
+      )}
     </div>
   );
 };

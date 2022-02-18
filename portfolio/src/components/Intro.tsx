@@ -68,21 +68,27 @@ const Box = styled(motion.div)`
   @media screen and (max-width: 60em) {
     width: 70vw;
   }
-  @media screen and(max-width: 70em) {
-    width: 75vw;
+  @media (max-width: 50em) {
+    width: 50vw;
+    background-size: 100% 2px;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
   }
   @media only screen and (max-width: 50em) {
-    border-right-width: initial;
-    border-left-width: initial;
-    border-right-color: initial;
-    border-left-color: initial;
-    background: linear-gradient(rgb(252, 246, 244) 50%, rgb(0, 0, 0) 50%) 0px
-        0px / 2px 100% no-repeat,
-      linear-gradient(rgb(252, 246, 244) 50%, rgb(0, 0, 0) 50%) 100% 0px;
-    border-style: solid none;
-    border-image: initial;
-    border-top: 2px solid rgb(252, 246, 244);
-    border-bottom: 2px solid rgb(0, 0, 0);
+    background: linear-gradient(
+          ${(props) => props.theme.body} 50%,
+          ${(props) => props.theme.panelLeft} 50%
+        )
+        0px 0px / 2px 100% no-repeat,
+      linear-gradient(
+          ${(props) => props.theme.panelLeft} 50%,
+          ${(props) => props.theme.body} 50%
+        )
+        100% 0px;
+
+    border-top: 2px solid ${(props) => props.theme.body};
+    border-bottom: 2px solid ${(props) => props.theme.panelLeft};
     background-position: 0px 0px, 100% 0px;
     background-repeat: no-repeat;
     width: 50vw;
@@ -94,7 +100,7 @@ const Box = styled(motion.div)`
   display: flex;
   position: absolute;
   transform: translate(-50%, -50%);
-  height: 55vh;
+  height: 70vh
   width: 65vw;
   margin: 0 auto;
 
