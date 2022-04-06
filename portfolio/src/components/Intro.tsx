@@ -76,22 +76,21 @@ const Box = styled(motion.div)`
     justify-content: space-between;
   }
   @media only screen and (max-width: 50em) {
-    background: linear-gradient(
-          ${(props) => props.theme.body} 50%,
-          ${(props) => props.theme.panelLeft} 50%
-        )
-        0px 0px / 2px 100% no-repeat,
-      linear-gradient(
-          ${(props) => props.theme.panelLeft} 50%,
-          ${(props) => props.theme.body} 50%
-        )
-        100% 0px;
-
+    background: linear-gradient( to bottom,${(props) => props.theme.panelLeft} 50%,
+    ${(props) => props.theme.panelLeft} 50% ) 2px 0px / 2px 100% no-repeat,
+linear-gradient( to bottom ,${(props) => props.theme.body} 50%,
+    ${(props) => props.theme.body} 50% ) 2px 0px / 2px 100% no-repeat,
+linear-gradient( to bottom ,${(props) => props.theme.body} 50%,
+    ${(props) => props.theme.body} 50% ) 2px 0px / 2px 100% right;
     border-top: 2px solid ${(props) => props.theme.body};
     border-bottom: 2px solid ${(props) => props.theme.panelLeft};
-    background-position: 0px 0px, 100% 0px;
+    border-left: ${(props) => props.theme.body};
+    border-right: none;
+        
     background-repeat: no-repeat;
-    width: 50vw;
+     &:after {
+       border-right-color: aliceblue;
+     }
   }
 
   left: 50%;
